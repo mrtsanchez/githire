@@ -1,0 +1,21 @@
+// Font weights
+$light: 100;
+$regular: 400;
+$bold: 600;
+$bolder: 900;
+
+//screen break-points
+$break-tablet: 'max-width:915px';
+$break-mobile: 'max-width:690px';
+
+
+// Base Font
+$base-font-family: 'Open Sans', sans-serif;
+$base-font-weight: $regular;
+$base-font-size: 14px;
+$base-line-height: 1.42857143;
+$base-text-color: #4d4d4d;
+
+// secondary font
+$secondary-font-family: 'Raleway', sans-serif;
+$secondary-color: #368dc9;

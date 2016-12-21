@@ -2,10 +2,52 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <script src="bower_components/jquery/dist/jquery.min.js"></script>
-    <title></title>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans|Raleway" rel="stylesheet">
+    <link rel="stylesheet" href="css/application.css" media="screen" title="no title" charset="utf-8">
+    <script src="build/js/vendor.min.js"></script>
+    <script type="text/javascript" src="build/js/app.js"></script>
+    <script src="bower_components/moment/min/moment.min.js"></script>
+    <title>GitHire</title>
   </head>
   <body>
+
+    <div class="jumbotron">
+      <div class="container">
+        <h1>YOU DON'T HAVE TO BE A HACKER TO FIND GREAT DEVELOPERS!</h1>
+        {{search-form lookUp="lookUp"}}
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="row index-content">
+        <div class="col-md-4">
+          <img src="http://masterbranch.com/images/candidate-search-icon.png" alt="search" class="img-responsive center-block"/>
+          <h2 class="blue-title text-center">POWERFUL CANDIDATE SEARCH</h2>
+          <p class="description">
+            We find only the relevant candidates for your requirments. No more boolean searches, complex filters or spending countless hours scanning through the internet to find the right candidates.
+          </p>
+        </div>
+        <div class="col-md-4">
+          <img src="http://masterbranch.com/images/easy-assesment-icon.png" alt="assesment" class="img-responsive center-block"/>
+          <h2 class="blue-title text-center">EASY ASSESMENT</h2>
+          <p class="description">
+            No need to test, decrypt and go over the skills of the candidate. We pre-screen and validate the technical expertise of the hackers so you can find the very best developers.
+          </p>
+        </div>
+        <div class="col-md-4 text-center">
+          <img src="http://masterbranch.com/images/candidate-profile-icon.png" alt="data sources" class="img-responsive center-block"/>
+          <h2 class="blue-title">DATA SOURCES</h2>
+          <p class="description">
+            <p>
+              GitHub API
+            </p>
+            <p>
+              FullContact API
+            </p>
+          </p>
+        </div>
+      </div>
+    </div>
 
   </body>
 </html>
