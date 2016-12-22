@@ -1,4 +1,4 @@
-var GitHubSearch = require('./../js/githubapp.js').gitHubModule;
+var GitHubSearch = require('./../js/githire.js').gitHubModule;
 
 $(document).ready(function() {
 
@@ -18,19 +18,9 @@ $(document).ready(function() {
 
     currentGitHubSearch = new GitHubSearch();
 
-    currentGitHubSearch.userLookup(input_username, displayResults, displayErrorMessage);
-    currentGitHubSearch.reposLookup(input_username, displayRepos);
+    currentGitHubSearch.userLookup(input_location, input_language);
+    // currentGitHubSearch.reposLookup(input_username, displayRepos);
 
   });
-
-  $("#filter-by").submit(function(event){
-
-    event.preventDefault();
-
-    var language = $("#used-languages").val();
-
-    currentGitHubSearch.reposbyLanguage(input_username, getReposByLanguage, language);
-  });
-
 
 });
