@@ -21,7 +21,7 @@ var lib = require('bower-files')({
 });
 
 var browserSync = require('browser-sync').create();
-var saas = require('gulp-sass');
+var sass = require('gulp-sass');
 var sourcemaps = require ('gulp-sourcemaps');
 
 gulp.task('jshint', function(){
@@ -75,7 +75,7 @@ gulp.task('build', ['clean'], function(){
     gulp.start('jsBrowserify');
   }
   gulp.start('bower');
-  gulp.start('cssBuild')
+  gulp.start('cssBuild');
 });
 
 gulp.task('serve', ['build'], function(){
