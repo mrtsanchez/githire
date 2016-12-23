@@ -1,9 +1,14 @@
 var GitHubSearch = require('./../js/githire.js').gitHubModule;
 
+// function filterCandidates(){
+//
+//
+// }
+
 $(document).ready(function() {
 
-  var location;
-  var language;
+  var input_location;
+  var input_language;
   var currentGitHubSearch;
 
   $("#github-search").submit(function(event) {
@@ -15,10 +20,12 @@ $(document).ready(function() {
 
     input_location = $("#location").val();
     input_language = $("#language").val();
+    console.log(input_location);
+    console.log(input_language);
 
     currentGitHubSearch = new GitHubSearch();
 
-    currentGitHubSearch.userLookup(input_location, input_language);
+    currentGitHubSearch.locationLookup(input_location, input_language);
     // currentGitHubSearch.reposLookup(input_username, displayRepos);
 
   });

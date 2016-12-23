@@ -1,0 +1,79 @@
+/*navbar*/
+
+.navbar-default {
+  background-color: #fff;
+  border-color: #fff;
+}
+
+.nav-bar-image {
+  height: 30px;
+  overflow: hidden;
+}
+
+/*header*/
+
+.jumbotron h1 {
+  font-family: 'Raleway', sans-serif;
+  text-align: center;
+  width: 100%;
+  padding-left: 15px;
+  padding-right: 15px;
+  font-size: 35px!important;
+  line-height: 50px;
+  color: #fff;
+  font-weight: 900;
+  margin-bottom: 30px;
+  /*margin: 0 auto;*/
+}
+
+.jumbotron p {
+  font-family: 'Raleway', sans-serif;
+  text-align: center;
+  width: 100%;
+  padding-left: 15px;
+  padding-right: 15px;
+  font-size: 20px!important;
+  line-height: 40px;
+  color: #fff;
+  font-weight: 900;
+  /*margin: 0 auto;*/
+}
+
+.jumbotron {
+  background: url('../../img/developers-image.jpg') 50% no-repeat;
+  background-size: cover;
+  margin-top: -20px;
+  padding: 100px 0;
+}
+
+.search-form {
+  text-align: center;
+  padding-left: 15px;
+  padding-right: 15px;
+  color: #fff;
+}
+
+.language-input {
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+.form-select {
+  margin-left: 10px;
+}
+
+.index-content {
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+
+.description {
+  margin-top: 20px;
+}
+
+.footer {
+  background-color: #1c1c1c;
+  border-top: 4px solid #368dc9;
+  padding: 40px 0;
+  color: #fff;
+}
