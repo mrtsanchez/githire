@@ -4,6 +4,22 @@ function GitHubSearch() {
 
 };
 
+function paginateDevelopers (location, language, pageNumber){
+  console.log('page number: ' + pageNumber);
+
+  var url = 'https://api.github.com/search/users?q=location:' + location + '+followers:%3E50+language:'+ language + '?access_token=' + apiKey +'&page='+ pageNumber +'&per_page=100'
+
+  $.get(url).then(function(response){
+          var users = response.items;
+          for(var k = 0; k < users.length; k++){
+            console.log(users[k].login);
+          }
+        }).fail(function(error){
+        // displayErrorMessage(username);
+        });
+}
+
+
 GitHubSearch.prototype.locationLookup = function(location, language){
   var usernames = [];
   var candidatesInformation = [];
@@ -17,21 +33,14 @@ GitHubSearch.prototype.locationLookup = function(location, language){
     if (response.total_count > 100) {
       var pages = Math.ceil(response.total_count/100);
       for (var j= 2; j <= pages; j++) {
-        $.get('https://api.github.com/search/users?q=location:' + location + '+followers:%3E50+language:'+ language + '?access_token=' + apiKey +'&page='+ j +'&per_page=100').then(function(response){
-          var users = response.items;
-          for(var k = 0; k < users.length; k++){
-            usernames.push(users[k].login);
-          }
-        }).fail(function(error){
-        // displayErrorMessage(username);
-        });
+        paginateDevelopers(location, language, j);
       }
     }
     console.log(usernames);
 
     // get all the repos of the developers
     var repos = [];
-    for(var l = 0; l < response.total_count; l++){
+    for(var l = 0; l < usernames.length; l++){
       repos.push($.get('https://api.github.com/users/' + usernames[l] + '/repos?access_token='+ apiKey + '&per_page=100'));
     }
     console.log(repos);
