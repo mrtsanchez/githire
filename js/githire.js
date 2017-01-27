@@ -32,7 +32,7 @@ GitHubSearch.prototype.locationLookup = function(location, language){
     // get all the repos of the developers
     var repos = [];
     for(var l = 0; l < response.total_count; l++){
-      repos.push($.get('https://api.github.com/users/' + usernames[l] + '/repos?access_token='+ apiKey));
+      repos.push($.get('https://api.github.com/users/' + usernames[l] + '/repos?access_token='+ apiKey + '&per_page=100'));
     }
     console.log(repos);
 
@@ -64,7 +64,7 @@ GitHubSearch.prototype.locationLookup = function(location, language){
         candidatesInfo.push($.get('https://api.github.com/users/' + candidates[p] +'?access_token=' + apiKey));
       }
       console.log(candidates);
-      
+
       $.when.apply($, candidatesInfo).done(function(){
 
         for(var q = 0, len = arguments.length; q < len; q++){
