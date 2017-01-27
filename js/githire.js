@@ -4,16 +4,38 @@ function GitHubSearch() {
 
 };
 
+function getDevelopers(location, language, response){
+
+  var usernames = [];
+
+  for(var i = 0; i < response.items.length; i++){
+    usernames.push(response.items[i].login);
+  }
+  // Github responses are paginated. If there are more than 100 results, get the additional pages.
+  if (response.total_count > 100) {
+    var pages = Math.ceil(response.total_count/100);
+    for (var j= 2; j <= pages; j++) {
+      paginateDevelopers(location, language, j);
+    }
+  }
+  console.log('developers:')
+  console.log(allDevelopers);
+  return allDevelopers;
+}
+
+
 function paginateDevelopers (location, language, pageNumber){
-  console.log('page number: ' + pageNumber);
 
   var url = 'https://api.github.com/search/users?q=location:' + location + '+followers:%3E50+language:'+ language + '?access_token=' + apiKey +'&page='+ pageNumber +'&per_page=100'
 
   $.get(url).then(function(response){
-          var users = response.items;
-          for(var k = 0; k < users.length; k++){
-            console.log(users[k].login);
+          var moreUsers = [];
+          for(var k = 0; k < response.items.length; k++){
+            moreUsers.push(response.items[k].login);
           }
+          console.log(moreUsers);
+          return moreUsers;
+
         }).fail(function(error){
         // displayErrorMessage(username);
         });
@@ -21,29 +43,24 @@ function paginateDevelopers (location, language, pageNumber){
 
 
 GitHubSearch.prototype.locationLookup = function(location, language){
-  var usernames = [];
+
   var candidatesInformation = [];
+
   $.get('https://api.github.com/search/users?q=location:' + location + '+followers:%3E50+language:'+ language + '?access_token=' + apiKey +'&per_page=100').then(function(response){
-    // Add the first 100 developers to an array
-    var users = response.items;
-    for(var i = 0; i < users.length; i++){
-      usernames.push(users[i].login);
-    }
-    // Github responses are paginated. If there are mote than 100 results, get the additional pages.
-    if (response.total_count > 100) {
-      var pages = Math.ceil(response.total_count/100);
-      for (var j= 2; j <= pages; j++) {
-        paginateDevelopers(location, language, j);
-      }
-    }
-    console.log(usernames);
+    var developers = getDevelopers(location, language, response);
+    // console.log(developers);
+  }).fail(function(error){
+    // displayErrorMessage(username);
+  }); // end the initial Github API call
+
+
 
     // get all the repos of the developers
     var repos = [];
     for(var l = 0; l < usernames.length; l++){
       repos.push($.get('https://api.github.com/users/' + usernames[l] + '/repos?access_token='+ apiKey + '&per_page=100'));
     }
-    console.log(repos);
+    console.log('repos: ' + repos);
 
     // extract the actual repos from the array of objects created in the last step
     $.when.apply($, repos).done(function(){
@@ -85,11 +102,9 @@ GitHubSearch.prototype.locationLookup = function(location, language){
     }); // End the first when
 
     console.log('pages: '+ pages);
-
     console.log('devs: ' + response.total_count);
-  }).fail(function(error){
-    // displayErrorMessage(username);
-  }); // end the initial Github API call
+    console.log(usernames);
+
   return candidatesInformation;
 };
 
