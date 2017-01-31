@@ -5,7 +5,7 @@ function GitHubSearch() {
 }
 
 function getDevelopers(location, language, pageNumber){
-  return $.get('https://api.github.com/search/users?q=location:' + location + '+type:users+followers:>80+created:<2012-01-01+language:' + language + '?access_token=' + apiKey +'&page='+ pageNumber +'&per_page=100');
+  return $.get('https://api.github.com/search/users?q=location:' + location + '+type:users+followers:>50+created:<2012-01-01+language:' + language + '?access_token=' + apiKey +'&page='+ pageNumber +'&per_page=100');
 }
 
 function getRepos(username){

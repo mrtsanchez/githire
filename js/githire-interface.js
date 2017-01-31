@@ -9,6 +9,7 @@ $(document).ready(function() {
 
   var input_location;
   var input_language;
+  var input_experience;
   var currentGitHubSearch;
 
   $("#github-search").submit(function(event) {
@@ -20,12 +21,11 @@ $(document).ready(function() {
 
     input_location = $("#location").val();
     input_language = $("#language").val();
-    console.log(input_location);
-    console.log(input_language);
+    input_experience = $("#experience").val();
 
     currentGitHubSearch = new GitHubSearch();
 
-    currentGitHubSearch.devsLookup(input_location, input_language);
+    currentGitHubSearch.devsLookup(input_location, input_language, input_experience);
     // currentGitHubSearch.reposLookup(input_username, displayRepos);
 
   });
