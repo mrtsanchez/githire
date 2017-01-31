@@ -4,51 +4,50 @@ function GitHubSearch() {
 
 }
 
-function getDevelopers(location, language, response){
-
-  // for(var i = 0; i < response.items.length; i++){
-  //   usernames.push(response.items[i].login);
-  // }
-  // Github responses are paginated. If there are more than 100 results, get the additional pages.
-  if (response.total_count > 1000) {
-    var usernames = [];
-    for (var j = 2; j < 10; j++) {
-      $.when(paginateDevelopers(location, language, j)).done(function(devs){
-        for(var k = 0; k < devs.items.length; k++){
-          usernames.push(devs.items[k].login);
-        }
-      });
-    }
-  } else if (response.total_count > 100) {
-    var usernames = [];
-    var pages = Math.ceil(response.total_count/100);
-    for (var l= 1; l <= pages; l++) {
-      $.when(paginateDevelopers(location, language, l)).done(function(devs){
-        for(var m = 0; m < devs.items.length; m++){
-          usernames.push(devs.items[m].login);
-        }
-      });
-    }
-  }
-
-return usernames;
-
-}
-
-function paginateDevelopers(location, language, pageNumber){
+function getDevelopers(location, language, pageNumber){
   return $.get('https://api.github.com/search/users?q=location:' + location + '+type:users+followers:>80+created:<2012-01-01+language:' + language + '?access_token=' + apiKey +'&page='+ pageNumber +'&per_page=100');
 }
 
 function getRepos(username){
-  return $.get('https://api.github.com/users/' + username + '/repos?access_token='+ apiKey + '&sort=push&type=owner&per_page=30');
+  return $.get('https://api.github.com/users/' + username + '/repos?access_token='+ apiKey + '&sort=push&type=owner&per_page=100');
 }
 
 GitHubSearch.prototype.devsLookup = function(location, language){
 
-  $.get('https://api.github.com/search/users?q=location:' + location + '+type:users+followers:>80+created:<2012-01-01+language:'+ language + '?access_token=' + apiKey +'&per_page=100').then(function(response){
-    console.log(response.total_count);
-    var devs = getDevelopers(location, language, response);
+  (getDevelopers(location,language, 1)).then(function(response){
 
+    var totalDevs = response.total_count;
+
+    console.log(totalDevs);
+
+    var devs = [];
+    var pages = Math.ceil(totalDevs/100);
+    for (var l= 1; l <= pages; l++) {
+      devs.push(getDevelopers(location,language,l));
+    }
+
+    $.when.apply($, devs).then(function(){
+      var usernames = [];
+      for(var q = 0, len = arguments.length; q < len; q++){
+        for (var i = 0; i < arguments[q][0].items.length; i++){
+          usernames.push(arguments[q][0].items[i].login);
+        }
+      }
+      console.log(usernames);
+      var repos = [];
+      for (var j = 0; j < usernames.length; j++) {
+        repos.push(getRepos(usernames[j]));
+      }
+      // extract the actual repos from the array of objects created in the last step
+      $.when.apply($, repos).done(function(){
+        var allrepos = [];
+        for(var m = 0, len = arguments.length; m < len; m++){
+          allrepos.push(arguments[m][0]);
+        }
+        console.log(allrepos);
+      }); // End of the second when
+
+    }); // End of the first when
 
 
 
