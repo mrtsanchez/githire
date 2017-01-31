@@ -4,17 +4,23 @@ function GitHubSearch() {
 
 }
 
-function getDevelopers(location, language, pageNumber){
-  return $.get('https://api.github.com/search/users?q=location:' + location + '+type:users+followers:>50+created:<2012-01-01+language:' + language + '?access_token=' + apiKey +'&page='+ pageNumber +'&per_page=100');
+function getDevelopers(location, language, experience, pageNumber){
+  if (experience === "entry") {
+    return $.get('https://api.github.com/search/users?q=location:' + location + '+type:users+created:>2016-01-01+language:' + language + '?access_token=' + apiKey +'&page='+ pageNumber +'&per_page=100');
+  } else if (experience === "junior") {
+    return $.get('https://api.github.com/search/users?q=location:' + location + '+type:users+followers:>10+created:>2012-01-01+language:' + language + '?access_token=' + apiKey +'&page='+ pageNumber +'&per_page=100');
+  } else {
+    return $.get('https://api.github.com/search/users?q=location:' + location + '+type:users+followers:>50+created:<2012-01-01+language:' + language + '?access_token=' + apiKey +'&page='+ pageNumber +'&per_page=100');
+  }
 }
 
 function getRepos(username){
   return $.get('https://api.github.com/users/' + username + '/repos?access_token='+ apiKey + '&sort=push&type=owner&per_page=100');
 }
 
-GitHubSearch.prototype.devsLookup = function(location, language){
+GitHubSearch.prototype.devsLookup = function(location, language, experience){
 
-  (getDevelopers(location,language, 1)).then(function(response){
+  (getDevelopers(location,language, experience, 1)).then(function(response){
 
     var totalDevs = response.total_count;
 
@@ -23,7 +29,7 @@ GitHubSearch.prototype.devsLookup = function(location, language){
     var devs = [];
     var pages = Math.ceil(totalDevs/100);
     for (var l= 1; l <= pages; l++) {
-      devs.push(getDevelopers(location,language,l));
+      devs.push(getDevelopers(location,language, experience, l));
     }
 
     $.when.apply($, devs).then(function(){
