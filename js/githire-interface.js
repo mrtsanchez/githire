@@ -25,7 +25,7 @@ $(document).ready(function() {
 
     currentGitHubSearch = new GitHubSearch();
 
-    currentGitHubSearch.locationLookup(input_location, input_language);
+    currentGitHubSearch.devsLookup(input_location, input_language);
     // currentGitHubSearch.reposLookup(input_username, displayRepos);
 
   });
