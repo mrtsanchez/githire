@@ -31,12 +31,12 @@ GitHubSearch.prototype.devsLookup = function(location, language, experience, dis
     var devs = [];
     var pages = Math.ceil(totalDevs/100);
     if (pages > 10) {
-      for (var l= 1; l <= 10; l++) {
-        devs.push(getDevelopers(location,language, experience, l));
+      for (var i= 1; i <= 10; i++) {
+        devs.push(getDevelopers(location,language, experience, i));
       }
     } else {
-      for (var l= 1; l <= pages; l++) {
-        devs.push(getDevelopers(location,language, experience, l));
+      for (var j= 1; j <= pages; j++) {
+        devs.push(getDevelopers(location,language, experience, j));
       }
     }
 
@@ -75,18 +75,18 @@ GitHubSearch.prototype.devsLookup = function(location, language, experience, dis
               candidates.push(topRepos[0].owner.login);
             }
             } else if (experience === "junior") {
-              for (var o = 0; o < allrepos[n].length; o++){
-                if (allrepos[n][o].language === language && allrepos[n][o].forks_count >= 2 && allrepos[n][o].watchers >= 2){
-                  topRepos.push(allrepos[n][o]);
+              for (var p = 0; p < allrepos[n].length; p++){
+                if (allrepos[n][p].language === language && allrepos[n][p].forks_count >= 2 && allrepos[n][p].watchers >= 2){
+                  topRepos.push(allrepos[n][p]);
                 }
               }
               if(topRepos.length >= 5){
                 candidates.push(topRepos[0].owner.login);
               }
             } else {
-              for (var o = 0; o < allrepos[n].length; o++){
-                if (allrepos[n][o].language === language && allrepos[n][o].forks_count >= 1 && allrepos[n][o].watchers >= 10 && allrepos[n][o].stargazers_count >= 2){
-                  topRepos.push(allrepos[n][o]);
+              for (var q = 0; q < allrepos[n].length; q++){
+                if (allrepos[n][q].language === language && allrepos[n][q].forks_count >= 1 && allrepos[n][q].watchers >= 10 && allrepos[n][q].stargazers_count >= 2){
+                  topRepos.push(allrepos[n][q]);
                 }
               }
               if(topRepos.length >= 2){
@@ -101,8 +101,8 @@ GitHubSearch.prototype.devsLookup = function(location, language, experience, dis
         // Go to github again and retrieve the info for the candidates that made the cut
         var candidatesData = [];
 
-        for (var p = 0; p < candidates.length; p++){
-          candidatesData.push($.get('https://api.github.com/users/' + candidates[p] +'?access_token=' + apiKey));
+        for (var r = 0; r < candidates.length; r++){
+          candidatesData.push($.get('https://api.github.com/users/' + candidates[r] +'?access_token=' + apiKey));
         }
 
         $.when.apply($, candidatesData).done(function(){
@@ -123,6 +123,6 @@ GitHubSearch.prototype.devsLookup = function(location, language, experience, dis
   // displayErrorMessage(username);
   }); // end the initial Github API call
 
-}
+};
 
 exports.gitHubModule = GitHubSearch;

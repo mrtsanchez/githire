@@ -32,9 +32,9 @@
     <div class="jumbotron">
       <div class="container">
         <h1>YOU DON'T HAVE TO BE A HACKER TO FIND GREAT DEVELOPERS!</h1>
-        <div class="search-form">
-          <form class="form-inline" id="github-search">
+        <div class="search-form" id="search-form">
 
+          <form class="form-inline" id="github-search">
             <div class="form-group">
               <label for="location">LOCATION:</label>
               <select class="form-control form-select" id="location">
@@ -84,13 +84,9 @@
 
     <div class="container">
       <div class="row" id="spinner">
-        <div class="col-md-5">
-        </div>
-        <div class="col-md-2">
-          <img src="http://www.nasa.gov/multimedia/videogallery/ajax-loader.gif">
-        </div>
-        <div class="col-md-5">
-          We are blah blah blah
+        <div class="col-md-12 ">
+          <p class="text-center"><img src="http://www.nasa.gov/multimedia/videogallery/ajax-loader.gif"></p>
+          <p class="text-center">We are finding the relevant candidates for your requirments. This may take a few minutes.</p>
         </div>
       </div>
       <div class="row index-content">
@@ -118,6 +114,9 @@
             <p>
               FullContact API
             </p>
+            <p>
+              Twitter API
+            </p>
           </p>
         </div>
       </div>
@@ -131,13 +130,55 @@
     <div class="footer">
       <div class="container">
         <p>
-          About
+          Epicodus Captio Project, 2017.
         </p>
         <p>
-          Contact
+          <a href="mailto:sanchez.marta@gmail.com?subject=githire">Contact</a>
         </p>
       </div>
-    </div>`
+    </div>
+
+    <div class="modal fade" tabindex="-1" role="dialog" id="myModal">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 id="dev-name" class="modal-title dev-profile"></h4>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-md-12">
+              <p>
+                <img alt="placeholder" src="img/location.png"><span id="dev-location" class="dev-profile"></span>
+              </p>
+              <p>
+                <img alt="github" src="img/github-logo.png"><span id="dev-github-handle" class="dev-profile"></span>
+              </p>
+              <!-- <p>
+                <span id="dev-github-bio" class="dev-profile"></span>
+              </p> -->
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <ul class="list-group dev-profile" id="dev-social">
+                <li class="list-group-item"><h6 class="blue-title">Social Media Profiles:</h6></li>
+              </ul>
+            </div>
+            <div class="col-md-6">
+              <span id="dev-avatar" class="dev-profile"></span>
+            </div>
+          </div>
+          <div id="dev-twitter" class="row dev-profile" >
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Add to Watchlist</button>
+        </div>
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+  </div><!-- /.modal -->
 
   </body>
 </html>
