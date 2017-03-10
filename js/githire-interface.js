@@ -73,16 +73,21 @@ function displayProfile(profileData, githubProfile){
 
   $(".dev-profile").empty();
   $("#dev-name").append(profileData.contactInfo.fullName);
-  $("#dev-location").append(profileData.demographics.locationGeneral);
+  if (profileData.demographics.locationGeneral !== undefined){
+    $("#dev-location").append(profileData.demographics.locationGeneral);
+  } else {
+    $("#dev-location").hide();
+  }
+
   $("#dev-github-handle").append(githubProfile);
   for (var i = 0; i < profileData.socialProfiles.length; i++) {
-    $("#dev-social").append('<li class="list-group-item"><a href="'+ profileData.socialProfiles[i].url +'" target="_blank">'+profileData.socialProfiles[i].typeName +'</a></li>');
+    $("#dev-social").append('<li class="list-group-item"><a href="'+ profileData.socialProfiles[i].url +'" target="_blank">'+ profileData.socialProfiles[i].typeName +'</a></li>');
     if (profileData.socialProfiles[i].type === "twitter"){
-        var twitterHandle = responseJSON.socialProfiles[i].url;
+        var twitterHandle = profileData.socialProfiles[i].url;
         $("#dev-twitter").append('<a class="twitter-timeline" href="https://twitter.com/'+ twitterHandle +'">Tweets by '+ twitterHandle +'</a> <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>');
     }
   }
-  if (profileData.photos[0] != undefined){
+  if (profileData.photos[0] !== undefined){
     $("#dev-avatar").append('<img src="' + profileData.photos[0].url + '" alt="avatar" class="img-responsive"/>');
   }
 }

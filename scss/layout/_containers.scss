@@ -88,5 +88,9 @@
 }
 
 .profile-picture {
-  margin-bottom: 15px;
+  margin-bottom: 20px;
+}
+
+.row > div:nth-child(3n+4) {
+    clear: left;
 }
